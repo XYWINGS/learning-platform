@@ -1,7 +1,7 @@
 import { body } from "express-validator";
 import {  validate } from "../utils/validator";
 import { Router } from "express";
-import {paymentRegister,deleteCourse,getAllCourse,getAllCourse1,getCoursebyId,updateuser } from "../controllers/course.control";
+import {paymentRegister,deleteCourse,getAllCourse,getAllCourse1,getCoursebyId,updateuser, updatecourse } from "../controllers/course.control";
 
 
 const courseRouter = Router();
@@ -19,6 +19,8 @@ courseRouter.get("/getallcourse",getAllCourse1)
 courseRouter.get("/getcourseId/:id",getCoursebyId)
 
 courseRouter.put("/updateuser/:id",updateuser)
+
+courseRouter.put("/updatecourse/:id",updatecourse)
 
 
 export default courseRouter;

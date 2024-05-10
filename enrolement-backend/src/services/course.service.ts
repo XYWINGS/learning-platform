@@ -66,6 +66,18 @@ export async function updateuserById(id: string, course: Course) {
   }
 }
 
+export async function updatecourseById(id: string, course: Course) {
+  try {
+    const res = await Payment.findByIdAndUpdate(id, 
+      { $set: { course: course } },
+      { new: true }
+  );
+    return res;
+  } catch (err: any) {
+    return { status: "error with update course", error: err.message };
+  }
+}
+
 export async function deleteCourseById(id: string) {
   try {
     const res = await Payment.findByIdAndDelete(id);

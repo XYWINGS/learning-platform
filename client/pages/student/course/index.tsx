@@ -33,6 +33,8 @@ const Index: NextPage = () => {
 	const [course1, setCourse1] = useState<Course[]>([]);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [user, setUser] = useState<any>();
+	const [cid, setId] = useState<any>([]);
+	
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -98,28 +100,32 @@ const Index: NextPage = () => {
 			<Page container='fluid'>
 				<div className='row'>
 					<div className='row row-cols-1 row-cols-md-3 g-4'>
-						{course1
-							.slice(0, 2)
-							
-							.map((course, index) => (
-								<div className='col' key={index}>
-									<div className='card'>
-										<img
-											src={course?.document[0]?.file || image}
-											className='card-img-top'
-											alt='...'
-											style={{ height: '200px' }}
-										/>
-										<div className='card-body'>
-											<h5 className='card-title'>{course.courseName}</h5>
-											<p className='card-text'>{course.discription}</p>
-											<div className='d-grid gap-2 d-md-flex justify-content-md-end'>
-												{user.course[index].rate}% completed
-											</div>
+						{course1.slice(0, 3).map((course, index) => (
+							<div className='col' key={index}>
+								<div className='card'>
+									<img
+										src={course?.document[0]?.file || image}
+										className='card-img-top'
+										alt='...'
+										style={{ height: '200px' }}
+									/>
+									<div className='card-body'>
+										<h5 className='card-title'>{course.courseName}</h5>
+										<p className='card-text'>{course.discription}</p>
+										<div className='d-grid gap-2 d-md-flex justify-content-md-end'>
+											<Button
+												className='btn btn-primary me-md-2'
+												icon='Eye'
+												type='button'
+												tag='a'
+												href={`/student/my-learning/view-course/${course._id}`}>
+												view
+											</Button>
 										</div>
 									</div>
 								</div>
-							))}
+							</div>
+						))}
 					</div>
 					<hr />
 					<div className='input-group mt-5 mb-5'>

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { addpayment, findcourseById, deleteCourseById, getCourse, getCourseById, updateuserById, findcourseByname, getallCourse } from "../services/course.service";
+import { addpayment, findcourseById, deleteCourseById, getCourse, getCourseById, updateuserById, findcourseByname, getallCourse, updatecourseById } from "../services/course.service";
 
 
 export const paymentRegister = async (req: Request, res: Response) => {
@@ -75,6 +75,20 @@ export const updateuser = async (req: Request, res: Response) => {
     }
 }
 
+export const updatecourse = async (req: Request, res: Response) => {
+    try {
+        let Id = req.params.id
+    
+        const course = await updatecourseById(Id, req.body);
+        console.log(course)
+        res.status(200).send(course)
+
+    } catch (err: any) {
+        return res.status(400).send({
+            err: "please ckeck error",
+        });
+    }
+}
 export const deleteCourse = async (req: Request, res: Response) => {
     try {
         let Id = req.params.id

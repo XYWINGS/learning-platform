@@ -32,18 +32,24 @@ interface Course {
 	_id: string;
 	courseName: string;
 	discription: string;
-	part: string;
+	part: number;
 	user: string;
 	document: [];
 	price: number;
 }
-
+interface User{
+	name:string,
+	IT_no:string,
+	role:string,
+	password:string
+}
 const id: NextPage = () => {
 	const router = useRouter();
 	const { id } = router.query;
-	const [data, setData] = useState<Course>();
+	const [data, setData] = useState<Course>({_id:"ff",courseName:"",discription:"",part:0,user:"",document:[],price:0});
 	const [documents, setDocuments] = useState<Document[]>([{ name: '', file: '' }]);
-	const [price, setPrice] = useState<any>('50');
+	const [course, setCourse] = useState<any>([]);
+	const [course1, setCourse1] = useState<any>([]);
 	const [user, setUser] = useState<any>();
 	const [state, setState] = useState<boolean>(true);
 
@@ -56,8 +62,7 @@ const id: NextPage = () => {
 					.then(async (res: any) => {
 						await setData(res.data);
 						await setDocuments(res.data.document);
-						data1.courseName = res.data.courseName;
-						data1.price = res.data.price;
+						console.log(res.data)
 					})
 					.catch((err) => {
 						console.error('Error fetching data: ', err);
@@ -83,8 +88,8 @@ const id: NextPage = () => {
 					});
 					await setUser(res.data);
 					await console.log(res.data);
-					data1.username = res.data.name;
-					data1.userid = res.data._id;
+					await setCourse(res.data.course)
+				
 					// Assuming you want to log the response data
 				} catch (error: any) {
 					console.error('Error fetching current user:', error.message);
@@ -92,77 +97,39 @@ const id: NextPage = () => {
 			}
 		};
 		fetchData(); // Call the async function
-	}, [id, state]);
+	}, [id, state,course1]);
 
-	const initialOptions: ReactPayPalScriptOptions = {
-		clientId:
-			'AcGbD2oTsz-H-WQhFE5-4PvSr97NmhguF7HN2t6V9OwenZfqywUHdd2B31gl8mhStN04MKcdMGwgbM42',
-		currency: 'USD',
-		// Add other options as needed
-	};
-
-	const styles: PayPalButtonsComponentProps['style'] = {
-		layout: 'horizontal',
-		shape: 'rect',
-	};
-	const data1 = {
-		courseName: data?.courseName,
-		userid: user?._id,
-		username: user?.name,
-		price: 50,
-		status: 'completed',
-		date: new Date().toISOString().split('T')[0],
-	};
-
-	const handlePaymentSuccess = async (data: any, actions: any) => {
-		// Implement logic to handle successful payment
-		await setState(false);
-		try {
-			const orderData = await actions.order.capture();
-			console.log('Payment successful:', orderData);
-
-			const res: any = await axios.post(`http://localhost:8070/addpayment`, data1);
-			await console.log(data1);
-			if (res) {
-				Swal.fire({
-					icon: 'success',
-					title: 'Success',
-					text: 'Successfully update course',
-				});
-				console.log('ok');
-			} else {
-				console.log('bad');
+const changerate =async ()=>{
+	console.log(course)
+	const updatedCourses = course.map((c:any) => {
+		if (c.id === id) {
+			if(c.rate<data?.part){
+				return { ...c, rate: c.rate + 1 };
 			}
-
-			const data2 = {
-				courseName: data1.courseName,
-				id: id,
-				rate: 0,
-			};
-
-			const res1: any = await axios.put(
-				`http://localhost:8071/updateuser/${data1.userid}`,
-				data2,
-			);
-			await console.log(data1);
-			if (res1) {
-				Swal.fire({
-					icon: 'success',
-					title: 'Success',
-					text: 'Successfully update course',
-				});
-				console.log('ok');
-			} else {
-				console.log('bad');
-			}
-
-			window.location.href = '/student/my-learning';
-			// Add logic to update your backend/database with the payment details
-		} catch (error) {
-			console.error('Error capturing payment:', error);
-			// Handle error scenario
+		 
 		}
-	};
+		return c;
+	  });
+	  try {
+		await axios
+			.put(`http://localhost:8071/updatecourse/${user._id}`,updatedCourses)
+			.then(async (res: any) => {
+				await setCourse1(updatedCourses);
+				
+			})
+			.catch((err) => {
+				console.error('Error fetching data: ', err);
+			});
+	} catch (error) {
+		console.error('Error fetching data: ', error);
+	}
+	  await setCourse(updatedCourses);
+	  console.log(updatedCourses)
+	
+}
+
+
+	
 
 	return (
 		<PageWrapper>
@@ -227,12 +194,12 @@ const id: NextPage = () => {
 															<div className='col-6'>
 																<Input
 																	type='range'
-																	value={(row.rate / 3) * 100}
+																	value={(row.rate/data?.part) * 100}
 																	readOnly
 																/>
 															</div>
 															<div className='col-6'>
-																{(row.rate / 3) * 100} %
+																{(row.rate /data?.part) * 100} %
 															</div>
 														</div>
 													</td>
@@ -252,9 +219,9 @@ const id: NextPage = () => {
 											<td scope='col'>{row.name}</td>
 										</div>
 										<div className='col-4'>
-											<td scope='col'>
+											<td scope='col' onClick={changerate}>
 												<a href={row.file} target='_blank'>
-													{' '}
+												
 													click hear to view document
 												</a>
 											</td>
