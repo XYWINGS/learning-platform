@@ -14,7 +14,7 @@ courseRouter.delete("/courseDelete/:id",deleteCourse)
 
 courseRouter.get("/getcourse/:id",getAllCourse)
 
-courseRouter.get("/getallcourse",getAllCourse1)
+courseRouter.get("/getallusers",getAllCourse1)
 
 courseRouter.get("/getcourseId/:id",getCoursebyId)
 

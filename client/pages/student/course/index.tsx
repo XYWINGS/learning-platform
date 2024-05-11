@@ -17,6 +17,7 @@ import Input from '../../../components/bootstrap/forms/Input';
 import image from '../../../assets/How-to-create-an-online-course.jpg';
 import Button from '../../../components/bootstrap/Button';
 import Icon from '../../../components/icon/Icon';
+import { NULL } from 'sass';
 
 const Index: NextPage = () => {
 	interface Course {
@@ -69,8 +70,9 @@ const Index: NextPage = () => {
 						const courseId = res.data.course[i].id;
 						console.log('hi');
 						const courseData = await fetchData1(courseId);
-						setCourse1((prevCourses) => [...prevCourses, courseData]); // Push course1 data into state array
+						await setCourse1((prevCourses) => [...prevCourses, courseData]); // Push course1 data into state array
 					}
+					await console.log(course1)
 					console.log(res.data);
 				} catch (error: any) {
 					console.error('Error fetching current user:', error.message);
@@ -96,6 +98,7 @@ const Index: NextPage = () => {
 		<PageWrapper>
 			<Page container='fluid'>
 				<div className='row'>
+					{course1?
 					<div className='row row-cols-1 row-cols-md-3 g-4'>
 						{course1.slice(0, 3).map((course, index) => (
 							<div className='col' key={index}>
@@ -124,6 +127,7 @@ const Index: NextPage = () => {
 							</div>
 						))}
 					</div>
+					:<></>}
 					<hr />
 					<div className='input-group mt-5 mb-5'>
 						<span className='input-group-text' id='basic-addon1'>
