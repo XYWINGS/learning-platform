@@ -39,22 +39,17 @@ const Index: NextPage = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				await axios
-					.get(`http://localhost:8090/getallcourse`)
-					.then(async (res: any) => {
-						await setCourse(res.data);
-						console.log(res.data);
-					})
-					.catch((err) => {
-						console.error('Error fetching data: ', err);
-					});
+				const response = await axios.get(`http://localhost:8090/getallcourse`);
+				const newData = response.data.filter((item: any) => !cid.includes(item._id)); // Filter out items already in cid
+				setCourse(newData); // Add only new items to setCourse
+				console.log(newData);
 			} catch (error) {
 				console.error('Error fetching data: ', error);
 			}
 		};
 
 		fetchData();
-	}, []);
+	}, [cid]);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -88,7 +83,9 @@ const Index: NextPage = () => {
 	const fetchData1 = async (id: any) => {
 		try {
 			const response = await axios.get(`http://localhost:8090/getcourseId/${id}`);
+			setId((prevIds:any) => [...prevIds,id]); 
 			return response.data; // Return the fetched data
+			
 		} catch (error) {
 			console.error('Error fetching data: ', error);
 			return null;

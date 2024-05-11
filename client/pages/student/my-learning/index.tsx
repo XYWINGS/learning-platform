@@ -13,6 +13,7 @@ import Page from '../../../layout/Page/Page';
 
 import router, { useRouter } from 'next/router';
 import axios from 'axios';
+import Button from '../../../components/bootstrap/Button';
 
 const Index: NextPage = () => {
 	interface Course {
@@ -73,34 +74,45 @@ const Index: NextPage = () => {
 			return null;
 		}
 	};
-const navigater= (id:any)=>{
-  router.push(`/student/my-learning/view-course/${id}`)
-
-}
+	const navigater = (id: any) => {
+		router.push(`/student/my-learning/view-course/${id}`);
+	};
 	return (
 		<PageWrapper>
 			<Page container='fluid'>
 				<div className='row'>
 					<div className='row row-cols-1 row-cols-md-3 g-4'>
-						{course1.map((course, index) => (
-							<div className='col' key={index} onClick={()=>(navigater(course._id))}>
-								<div className='card'>
-									<img
-										src={course?.document[0]?.file || image}
-										className='card-img-top'
-										alt='...'
-										style={{ height: '200px' }}
-									/>
-									<div className='card-body'>
-										<h5 className='card-title'>{course.courseName}</h5>
-										<p className='card-text'>{course.discription}</p>
-										<div className='d-grid gap-2 d-md-flex justify-content-md-end'>
-											{user.course[index]?.rate}% completed
+						{course1
+							.filter(
+								(course, index, self) =>
+									index === self.findIndex((c) => c._id === course._id),
+							)
+							.map((course, index) => (
+								<div className='col' key={index}>
+									<div className='card'>
+										<img
+											src={course?.document[0]?.file || image}
+											className='card-img-top'
+											alt='...'
+											style={{ height: '200px' }}
+										/>
+										<div className='card-body'>
+											<h5 className='card-title'>{course.courseName}</h5>
+											<p className='card-text'>{course.discription}</p>
+											<div className='d-grid gap-2 d-md-flex justify-content-md-end'>
+												<Button
+													className='btn btn-primary me-md-2'
+													icon='Eye'
+													type='button'
+													tag='a'
+													href={`/student/my-learning/view-course/${course._id}`}>
+													view
+												</Button>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						))}
+							))}
 					</div>
 				</div>
 			</Page>
