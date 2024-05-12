@@ -14,7 +14,6 @@ import Page from '../../../layout/Page/Page';
 import { getColorNameWithIndex } from '../../../common/data/enumColors';
 import { getFirstLetter } from '../../../helpers/helpers';
 // import TeamAddModal from './add-new-course/TeamAddModal';
-
 import axios from 'axios';
 import useDarkMode from '../../../hooks/useDarkMode';
 import { Item } from '../../../layout/Navigation/Navigation';
@@ -28,7 +27,7 @@ interface Course {
 	enrollKey: string;
 	document: any;
 	status: any;
-	price:number;
+	price: number;
 }
 
 const Index: NextPage = () => {
@@ -80,11 +79,34 @@ const Index: NextPage = () => {
 		};
 
 		fetchData();
-	}, [user, addModalStatus]);
+	}, [user, addModalStatus,developers]);
 
 	const onhandlechange = (index: any) => {
 		setSelectedRowIndex((prevIndex) => (prevIndex === index ? null : index));
 	};
+  const handlechangestatus=async (course:any,type:any)=>{
+    console.log(course)
+    if (type=="pending"){
+      course.status="accept"
+    }
+    else{
+      course.status="pending"
+    }
+    console.log(course)
+    try {
+      await axios
+        .put(`http://localhost:8090/updatecourse/${course._id}`,course)
+        .then(async (res: any) => {
+          await setDevelopers(res.data);
+          console.log(res.data)
+        })
+        .catch((err) => {
+          console.error('Error fetching data: ', err);
+        });
+    } catch (error) {
+      console.error('Error fetching data: ', error);
+    }
+  }
 	return (
 		<PageWrapper>
 			<Head>
@@ -131,7 +153,7 @@ const Index: NextPage = () => {
 								<th>Enrollment Key</th>
 								<th>Course Content count</th>
 								<th>Course Price</th>
-                <th>Status</th>
+								<th>Status</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -185,29 +207,26 @@ const Index: NextPage = () => {
 												</div>
 											</td>
 
-											<td >
-												<div>{course.discription}</div>
-											
-											</td>
-											<td >
-												{course.enrollKey}
-											</td>
-											<td >
-												{course.part}
-											</td>
 											<td>
-												{course.price}
+												<div>{course.discription}</div>
 											</td>
-                      <td>
-												{course.status}
-											</td>
+											<td>{course.enrollKey}</td>
+											<td>{course.part}</td>
+											<td>{course.price}</td>
+											<td>{course.status}</td>
 											<th>
-												<Button
-													icon='Edit'
-													tag='a'
-													href={`/instructor/course/edit-course/${course._id}`}>
-													Edit
-												</Button>
+												<div className='form-check form-switch'>
+													<input
+														className='form-check-input'
+														type='checkbox'
+														role='switch'
+														id={`flexSwitchCheck${course._id}`} // Set a unique ID for each switch
+														checked={course.status === 'accept'} // Set checked based on course status
+														onChange={() => {
+													handlechangestatus(course,course.status)
+														}}
+													/>
+												</div>
 											</th>
 										</tr>
 									</>
