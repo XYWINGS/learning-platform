@@ -100,7 +100,7 @@ const Index: NextPage = () => {
 				<div className='row'>
 					{course1?
 					<div className='row row-cols-1 row-cols-md-3 g-4'>
-						{course1.slice(0, 3).map((course, index) => (
+						{course1?.slice(0, 2).map((course, index) => (
 							<div className='col' key={index}>
 								<div className='card'>
 									<img

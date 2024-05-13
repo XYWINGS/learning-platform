@@ -134,13 +134,13 @@ const Index: NextPage = () => {
 				<SubHeaderRight>
 					<SubheaderSeparator />
 					{/* Button to open new employee modal */}
-					<Button
+					{/* <Button
 						icon='PersonAdd'
 						color='primary'
 						isLight
 						onClick={() => setAddModalStatus(true)}>
 						New course
-					</Button>
+					</Button> */}
 				</SubHeaderRight>
 			</SubHeader>
 			<Page>

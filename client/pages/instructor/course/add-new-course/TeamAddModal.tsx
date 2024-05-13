@@ -227,7 +227,7 @@ const TeamAddModal: FC<ICustomerEditModalProps> = ({ id, isOpen, setIsOpen }) =>
 							validFeedback='Looks good!'
 						/>
 					</FormGroup>
-					<FormGroup id='price' label='Enrollment Key' className='col-md-6'>
+					<FormGroup id='price' label='Price' className='col-md-6'>
 						<Input
 							type='number'
 							onChange={formik.handleChange}
