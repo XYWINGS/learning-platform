@@ -21,14 +21,14 @@ export async function addpayment(course: Course) {
     }
 }
 
-export async function findcourseById(code: string) {
+export async function findPaymentById(code: string) {
     const existingcourse = await Payment.findOne({ code });
     const corse = JSON.parse(JSON.stringify(existingcourse))
     return corse;
 
 }
 
-export async function findcourseByname(code: string,c_name:string) {
+export async function findPaymentByname(code: string,c_name:string) {
     const existingcourse = await Payment.findOne({ code,c_name });
     const corse = JSON.parse(JSON.stringify(existingcourse))
     
@@ -38,7 +38,7 @@ export async function findcourseByname(code: string,c_name:string) {
 }
 
 
-export async function getCourse(id:string) {
+export async function getPayment(id:string) {
     try {
         const res = await Payment.find({user:id})
         return res
@@ -46,7 +46,7 @@ export async function getCourse(id:string) {
         return (err);
     }
 }
-export async function getallCourse() {
+export async function getallPayment() {
     try {
         const res = await Payment.find()
         return res
@@ -55,7 +55,7 @@ export async function getallCourse() {
     }
 }
 
-export async function getCourseById(id:string) {
+export async function getPaymentById(id:string) {
     try {
         const res = await Payment.findById(id)
         return res
@@ -64,7 +64,7 @@ export async function getCourseById(id:string) {
     }
 }
 
-export async function updateCourseById(id:string,course:Course) {
+export async function updatePaymentById(id:string,course:Course) {
     try {
         const res = await Payment.findByIdAndUpdate(id , course)
         return res
@@ -74,7 +74,7 @@ export async function updateCourseById(id:string,course:Course) {
 
 }
 
-export async function deleteCourseById(id:string) {
+export async function deletePaymentById(id:string) {
     try {
         const res = await Payment.findByIdAndDelete(id)
         return res

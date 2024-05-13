@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { addpayment, findcourseById, deleteCourseById, getCourse, getCourseById, updateuserById, findcourseByname, getallCourse, updatecourseById } from "../services/course.service";
 
 
-export const paymentRegister = async (req: Request, res: Response) => {
+export const userRegister = async (req: Request, res: Response) => {
     try {
      
         const course = await addpayment(req.body);
@@ -16,7 +16,7 @@ console.log(course)
     }
 }
 
-export const getAllCourse = async (req: Request, res: Response) => {
+export const getAllUser = async (req: Request, res: Response) => {
     try {
         let Id = req.params.id
 
@@ -31,7 +31,7 @@ export const getAllCourse = async (req: Request, res: Response) => {
 }
 
 
-export const getAllCourse1 = async (req: Request, res: Response) => {
+export const getAllUser1 = async (req: Request, res: Response) => {
     try {
         
 
@@ -45,7 +45,7 @@ export const getAllCourse1 = async (req: Request, res: Response) => {
     }
 }
 
-export const getCoursebyId = async (req: Request, res: Response) => {
+export const getUserbyId = async (req: Request, res: Response) => {
     try {
         let Id = req.params.id
         //validate user
@@ -75,7 +75,7 @@ export const updateuser = async (req: Request, res: Response) => {
     }
 }
 
-export const updatecourse = async (req: Request, res: Response) => {
+export const updateUser= async (req: Request, res: Response) => {
     try {
         let Id = req.params.id
     

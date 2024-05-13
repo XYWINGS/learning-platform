@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { addpayment, findcourseById, deleteCourseById, getCourse, getCourseById, updateCourseById, findcourseByname, getallCourse } from "../services/course.service";
+import { addpayment, findPaymentById, deletePaymentById, getPayment, getPaymentById, updatePaymentById, findPaymentByname, getallPayment } from "../services/course.service";
 
 
 export const paymentRegister = async (req: Request, res: Response) => {
@@ -16,11 +16,11 @@ console.log(course)
     }
 }
 
-export const getAllCourse = async (req: Request, res: Response) => {
+export const getAllPayment = async (req: Request, res: Response) => {
     try {
         let Id = req.params.id
 
-        const course = await getCourse(Id);
+        const course = await getPayment(Id);
         res.status(200).send(course)
 
     } catch (err: any) {
@@ -31,11 +31,11 @@ export const getAllCourse = async (req: Request, res: Response) => {
 }
 
 
-export const getAllCourse1 = async (req: Request, res: Response) => {
+export const getAllPayment1 = async (req: Request, res: Response) => {
     try {
         
 
-        const course = await getallCourse();
+        const course = await getallPayment();
         res.status(200).send(course)
 
     } catch (err: any) {
@@ -45,12 +45,12 @@ export const getAllCourse1 = async (req: Request, res: Response) => {
     }
 }
 
-export const getCoursebyId = async (req: Request, res: Response) => {
+export const getPaymentbyId = async (req: Request, res: Response) => {
     try {
         let Id = req.params.id
         //validate user
 
-        const course = await getCourseById(Id);
+        const course = await getPaymentById(Id);
         res.status(200).send(course)
 
     } catch (err: any) {
@@ -60,11 +60,11 @@ export const getCoursebyId = async (req: Request, res: Response) => {
     }
 }
 
-export const updatecourse = async (req: Request, res: Response) => {
+export const updatePayment = async (req: Request, res: Response) => {
     try {
         let Id = req.params.id
     
-        const course = await updateCourseById(Id, req.body);
+        const course = await updatePaymentById(Id, req.body);
         res.status(200).send(course)
 
     } catch (err: any) {
@@ -74,11 +74,11 @@ export const updatecourse = async (req: Request, res: Response) => {
     }
 }
 
-export const deleteCourse = async (req: Request, res: Response) => {
+export const deletePayment = async (req: Request, res: Response) => {
     try {
         let Id = req.params.id
       
-        const course = await deleteCourseById(Id);
+        const course = await deletePaymentById(Id);
         res.status(200).send(course)
 
     } catch (err: any) {

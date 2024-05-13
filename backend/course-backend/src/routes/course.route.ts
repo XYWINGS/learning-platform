@@ -8,7 +8,7 @@ const courseRouter = Router();
 
 courseRouter.post("/courseRegister",courseRegister)
 
-// courseRouter.post("/enrollecourse",enrollecourse)
+
 
 courseRouter.delete("/courseDelete/:id",deleteCourse)
 

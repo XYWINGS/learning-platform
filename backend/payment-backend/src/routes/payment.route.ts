@@ -1,7 +1,7 @@
 import { body } from "express-validator";
 import {  validate } from "../utils/validator";
 import { Router } from "express";
-import {paymentRegister,deleteCourse,getAllCourse,getAllCourse1,getCoursebyId,updatecourse } from "../controllers/course.control";
+import {paymentRegister,deletePayment,getAllPayment,getAllPayment1,getPaymentbyId,updatePayment } from "../controllers/payment.control";
 
 
 const courseRouter = Router();
@@ -10,15 +10,15 @@ courseRouter.post("/addpayment",paymentRegister)
 
 // courseRouter.post("/enrollecourse",enrollecourse)
 
-courseRouter.delete("/courseDelete/:id",deleteCourse)
+courseRouter.delete("/paymentDelete/:id",deletePayment)
 
-courseRouter.get("/getcourse/:id",getAllCourse)
+courseRouter.get("/getPayment/:id",getAllPayment)
 
-courseRouter.get("/getallcourse",getAllCourse1)
+courseRouter.get("/getallpayment",getAllPayment1)
 
-courseRouter.get("/getcourseId/:id",getCoursebyId)
+courseRouter.get("/getpaymentId/:id",getPaymentbyId)
 
-courseRouter.put("/updatecourse/:id",updatecourse)
+courseRouter.put("/updatepayment/:id",updatePayment)
 
 
 export default courseRouter;

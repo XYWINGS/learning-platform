@@ -3,7 +3,7 @@ import  express  from "express";
 
 import * as dotenv from 'dotenv';
 import mongoose from "mongoose";
-import paymentRouter from "./src/routes/payment.route";
+import paymentRouter from "./src/routes/course.route";
 
 dotenv.config();
 
