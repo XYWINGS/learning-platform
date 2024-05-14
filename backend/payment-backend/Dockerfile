@@ -1,17 +1,23 @@
-# Base image
-FROM node:16-alpine AS build-stage  
-# Working directory within the container
-WORKDIR /app
+FROM node:lts-alpine
 
-# Copy application code 
-COPY package*.json ./  
-RUN npm install  # Install dependencies (adjust command for your technology stack)
+# Set the working directory
+#WORKDIR 
+WORKDIR /Users/XYWINGS/Documents/LP/learning-platform/backend/payment-backend
 
-# Base image for the final container 
-FROM node:16-alpine
+# Copy package.json and package-lock.json
+COPY package.json yarn.lock ./
 
-# Expose port 
-EXPOSE 8070  
+# Install dependencies
+RUN yarn install 
 
-# Start command 
-CMD [ "npm", "start" ]
+# Copy the entire project
+COPY . .
+
+# Compile TypeScript files
+RUN yarn compile
+
+# Expose the port your app runs on
+EXPOSE 8070
+
+# Command to run the Node.js application
+CMD ["node", "dist/index.js"]

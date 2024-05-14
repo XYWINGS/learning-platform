@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ds-images-client-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ds-images-client
+  template:
+    metadata:
+      labels:
+        app: ds-images-client
+    spec:
+      containers:
+      - name: ds-images-client
+        image: xywings/ds-images-1:clientfrontend
+        ports:     
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ds-images-client-service
+spec:
+  selector:
+    app: ds-images-client
+  type: NodePort
+  ports:
+    - protocol: TCP
+      name : client
+      port: 3000
+      targetPort: 3000
+      nodePort : 30000
+
+
