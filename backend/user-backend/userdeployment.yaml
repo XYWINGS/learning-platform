@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: ds-images-user
-        image: xywings/ds-images-1:userbackend
+        image: xywings/ds-images-1:user-backend
         ports:
         - containerPort: 8080
 ---

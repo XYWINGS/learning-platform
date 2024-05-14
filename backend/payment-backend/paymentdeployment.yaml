@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: ds-images-payment
-        image: xywings/ds-images-1:paymentbackend
+        image: xywings/ds-images-1:payment-backend
         ports:
         - containerPort: 8070
 ---

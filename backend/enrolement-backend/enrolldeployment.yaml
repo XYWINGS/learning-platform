@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: ds-images-enrolment
-        image: xywings/ds-images-1:enrolmentbackend
+        image: xywings/ds-images-1:enrollment-backend
         ports:
         - containerPort: 8071
 ---

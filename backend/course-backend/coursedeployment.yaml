@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: ds-images-course
-        image: xywings/ds-images-1:coursebackend
+        image: xywings/ds-images-1:course-backend
         ports:
         - containerPort: 8090
 

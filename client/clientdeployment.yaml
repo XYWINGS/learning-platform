@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: ds-images-client
-        image: xywings/ds-images-1:clientfrontend
+        image: xywings/ds-images-1:client
         ports:     
 ---
 
