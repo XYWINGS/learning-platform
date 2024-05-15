@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { addcourse, findcourseById, deleteCourseById, getCourse, getCourseById, updateCourseById, findcourseByname, getallCourse } from "../services/course.service";
+import { addcourse, findcourseById, deleteCourseById, getCourse, getCourseById, updateCourseById, findcourseByname, getallCourse, getallapproveCourse } from "../services/course.service";
 
 
 export const courseRegister = async (req: Request, res: Response) => {
@@ -21,6 +21,20 @@ export const getAllCourse = async (req: Request, res: Response) => {
         let Id = req.params.id
 
         const course = await getCourse(Id);
+        res.status(200).send(course)
+
+    } catch (err: any) {
+        return res.status(400).send({
+            err: "please ckeck error",
+        });
+    }
+}
+
+export const getAllacceptCourse = async (req: Request, res: Response) => {
+    try {
+        
+
+        const course = await getallapproveCourse();
         res.status(200).send(course)
 
     } catch (err: any) {

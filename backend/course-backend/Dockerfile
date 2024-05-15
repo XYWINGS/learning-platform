@@ -3,7 +3,7 @@ FROM node:lts-alpine
 
 # Set the working directory
 #WORKDIR 
-WORKDIR /Users/XYWINGS/Documents/LP/learning-platform/backend/course-backend
+WORKDIR /SLIIT/DS/learning-platform/backend/course-backend
 
 # Copy package.json and package-lock.json
 COPY package.json yarn.lock ./

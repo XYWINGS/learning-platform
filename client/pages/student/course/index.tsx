@@ -40,7 +40,7 @@ const Index: NextPage = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await axios.get(`http://localhost:8090/getallcourse`);
+				const response = await axios.get(`http://localhost:8090/getallacceptcourse`);
 				const newData = response.data.filter((item: any) => !cid.includes(item._id)); // Filter out items already in cid
 				setCourse(newData); // Add only new items to setCourse
 				console.log(newData);
@@ -100,7 +100,7 @@ const Index: NextPage = () => {
 				<div className='row'>
 					{course1?
 					<div className='row row-cols-1 row-cols-md-3 g-4'>
-						{course1?.slice(0, 2).map((course, index) => (
+						{course1?.slice(0, 1).map((course, index) => (
 							<div className='col' key={index}>
 								<div className='card'>
 									<img

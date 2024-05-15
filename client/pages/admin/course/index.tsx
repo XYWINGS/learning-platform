@@ -19,6 +19,7 @@ import useDarkMode from '../../../hooks/useDarkMode';
 import { Item } from '../../../layout/Navigation/Navigation';
 import moment from 'moment';
 import router from 'next/router';
+import Swal from 'sweetalert2';
 interface Course {
 	_id: string;
 	courseName: string;
@@ -85,27 +86,40 @@ const Index: NextPage = () => {
 		setSelectedRowIndex((prevIndex) => (prevIndex === index ? null : index));
 	};
   const handlechangestatus=async (course:any,type:any)=>{
-    console.log(course)
-    if (type=="pending"){
-      course.status="accept"
-    }
-    else{
-      course.status="pending"
-    }
-    console.log(course)
-    try {
-      await axios
-        .put(`http://localhost:8090/updatecourse/${course._id}`,course)
-        .then(async (res: any) => {
-          await setDevelopers(res.data);
-          console.log(res.data)
-        })
-        .catch((err) => {
-          console.error('Error fetching data: ', err);
-        });
-    } catch (error) {
-      console.error('Error fetching data: ', error);
-    }
+	const result = await Swal.fire({
+		icon: 'success',
+		// title: 'Data Saved Successfully',
+		text: 'Are you want to update status?  ',
+		showCancelButton: true,
+		confirmButtonColor: '#04d43c',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Yes ',
+	  });
+
+	  if (result.isConfirmed) {
+		console.log(course)
+		if (type=="pending"){
+		  course.status="accept"
+		}
+		else{
+		  course.status="pending"
+		}
+		console.log(course)
+		try {
+		  await axios
+			.put(`http://localhost:8090/updatecourse/${course._id}`,course)
+			.then(async (res: any) => {
+			  await setDevelopers(res.data);
+			  console.log(res.data)
+			})
+			.catch((err) => {
+			  console.error('Error fetching data: ', err);
+			});
+		} catch (error) {
+		  console.error('Error fetching data: ', error);
+		}
+	  }
+   
   }
 	return (
 		<PageWrapper>

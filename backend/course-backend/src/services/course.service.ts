@@ -45,6 +45,15 @@ export async function getCourse(id:string) {
         return (err);
     }
 }
+
+export async function getallapproveCourse() {
+    try {
+        const res = await Course.find({status:"accept"})
+        return res
+    } catch (err: any) {
+        return (err);
+    }
+}
 export async function getallCourse() {
     try {
         const res = await Course.find()

@@ -23,6 +23,7 @@ import {
 	PayPalScriptProvider,
 	ReactPayPalScriptOptions,
 } from '@paypal/react-paypal-js';
+import emailjs, { send } from 'emailjs-com';
 
 interface Document {
 	name: string;
@@ -46,6 +47,11 @@ const id: NextPage = () => {
 	const [price, setPrice] = useState<any>('50');
 	const [user, setUser] = useState<any>();
 	const [state, setState] = useState<boolean>(true);
+
+	//send email
+	useEffect(() => {
+		emailjs.init('IniaxFR7483kY7YpP');
+	}, []);
 
 	// fetch data
 	useEffect(() => {
@@ -129,20 +135,33 @@ const id: NextPage = () => {
 					title: 'Success',
 					text: 'Successfully update course',
 				});
-				console.log('ok');
-
 				
+				emailjs
+					.send('service_qcvd3x5', 'template_fjf8m55', {
+						send_email:user.email,
+					})
+					.then((response) => {
+						console.log('Email sent successfully!', response);
+						Swal.fire('send!', 'Email send successfully', 'success');
+					})
+					.catch((error) => {
+						console.error('Email send failed:', error);
+						Swal.fire('Error', 'Failed to send email ,Try agane', 'error');
+					});
 			} else {
 				console.log('bad');
 			}
 
 			const data2 = {
 				courseName: data1.courseName,
-				id:id,
-				rate:0
+				id: id,
+				rate: 0,
 			};
-		
-			const res1: any = await axios.put(`http://localhost:8071/updateuser/${data1.userid}`, data2);
+
+			const res1: any = await axios.put(
+				`http://localhost:8071/updateuser/${data1.userid}`,
+				data2,
+			);
 			await console.log(data1);
 			if (res1) {
 				Swal.fire({
@@ -150,15 +169,13 @@ const id: NextPage = () => {
 					title: 'Success',
 					text: 'Successfully update course',
 				});
+				router.push("/student/my-learning")
 				console.log('ok');
-
-				
 			} else {
 				console.log('bad');
 			}
 
-			window.location.href = '/student/my-learning';
-			// Add logic to update your backend/database with the payment details
+			
 		} catch (error) {
 			console.error('Error capturing payment:', error);
 			// Handle error scenario

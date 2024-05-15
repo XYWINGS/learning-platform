@@ -42,7 +42,7 @@ export const addminPagesMenu = {
 		id: 'transaction',
 		text: 'Transaction Management ',
 		path: 'admin/transaction',
-		icon: 'Cash',
+		icon: 'Payment',
 
 	},	
 };
