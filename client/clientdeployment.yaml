@@ -14,9 +14,8 @@ spec:
     spec:
       containers:
       - name: ds-images-client
-        image: achinthadavidson/ds-images-1:client
-        imagePullPolicy: IfNotPresent
-        ports: 
+        image: xywings/ds-images-1:client
+        ports:     
 ---
 
 apiVersion: v1
@@ -33,5 +32,3 @@ spec:
       port: 3000
       targetPort: 3000
       nodePort : 30000
-
-
