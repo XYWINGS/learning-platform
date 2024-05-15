@@ -53,7 +53,21 @@ HOW TO DEPLOY USING DOCKER AND KUBERNATES
 
         docker tag 7732e451a8e4a9071f3a71e0a9b64588c9bdbfa0d820d4a20e078c87f8881d52 xywings/ds-images-1:user-backend
 
-        docker tag 67894edf3a8e12a88ae7af7628cc6603b7fb1dd0135afe62e5fbde48df92f8e1 xywings/ds-images-1:client
+        docker tag 8ee04174547c3c4717ece5f71aa61c77bf88871d083b70c2882725f432963413 client:latest
+
+
+
+
+      docker tag 3f25f316fac566036c7733e5e719fc540a600543c2c112cf36d1381f47d1f57c achinthadavidson/ds-images-1:course-backend
+
+        docker tag c293166e3cad474808702828b88fd3fda11de9033e0e2d519698e30220d5775b achinthadavidson/ds-images-1:enrollment-backend
+
+        docker tag 750d614df3b99ea78e249105c58106cab1ed707cebfd10a37ff1435e2510cc05 achinthadavidson/ds-images-1:payment-backend
+
+        docker tag 7732e451a8e4a9071f3a71e0a9b64588c9bdbfa0d820d4a20e078c87f8881d52 achinthadavidson/ds-images-1:user-backend
+
+        docker tag 98369532d090b34422586f5fdc22f9d79bcbf60db764edb51365e80dddc47211 achinthadavidson/ds-images-1:client
+
 
 2A3.PUSH TO DOCKER HUB
     docker push ImageName and Tag
